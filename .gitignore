@@ -1,5 +1,6 @@
 # ETC
 backups
+Caddyfile
 certs
 data/*
 instance
