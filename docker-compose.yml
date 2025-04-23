@@ -1,0 +1,26 @@
+services:
+  app:
+    container_name: lxconsole
+    # image: ghcr.io/yourusername/yourapp:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - LXCONSOLE_SECRET_KEY=${LXCONSOLE_SECRET_KEY}
+    volumes:
+      - certs:/opt/lxconsole/certs
+      - instance:/opt/lxconsole/instance
+    entrypoint: >
+      /bin/sh -c "
+        mkdir -p /opt/lxconsole/certs /opt/lxconsole/instance &&
+        chown -R lxconsole:lxconsole /opt/lxconsole/certs /opt/lxconsole/instance &&
+        exec gunicorn --bind 0.0.0.0:5000 run:app
+      "
+    user: root
+
+volumes:
+  certs:
+  instance:
