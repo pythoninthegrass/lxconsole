@@ -1,13 +1,13 @@
 example.local {
-    # Use Caddy's automatic internal CA
-    tls internal
+	# Use Caddy's automatic internal CA
+	tls internal
 
-    # Reverse proxy to the Docker container on port 5000
-    reverse_proxy localhost:5000
+	# Reverse proxy to the Docker container on port 5000
+	reverse_proxy localhost:5000
 
-    # Enable logging
-    log {
-        output file /var/log/caddy/access.log
-        format json
-    }
+	# Enable logging
+	log {
+		output file /var/log/caddy/access.log
+		format json
+	}
 }
