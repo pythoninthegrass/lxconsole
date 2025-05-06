@@ -86,3 +86,6 @@ EXPOSE 5000
 
 ENTRYPOINT ["gunicorn"]
 CMD ["--bind", "0.0.0.0:5000", "run:app"]
+
+LABEL org.opencontainers.image.title NAME="lxconsole"
+LABEL org.opencontainers.image.description DESCRIPTION="LXD Graphical Web Console."
