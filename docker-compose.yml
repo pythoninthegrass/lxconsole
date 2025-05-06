@@ -1,7 +1,7 @@
 services:
   app:
     container_name: lxconsole
-    # image: ghcr.io/yourusername/yourapp:latest
+    image: ghcr.io/pythoninthegrass/lxconsole:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,13 +13,13 @@ services:
     volumes:
       - certs:/opt/lxconsole/certs
       - instance:/opt/lxconsole/instance
+    user: root
     entrypoint: >
       /bin/sh -c "
         mkdir -p /opt/lxconsole/certs /opt/lxconsole/instance &&
         chown -R lxconsole:lxconsole /opt/lxconsole/certs /opt/lxconsole/instance &&
         exec gunicorn --bind 0.0.0.0:5000 run:app
       "
-    user: root
 
 volumes:
   certs:
