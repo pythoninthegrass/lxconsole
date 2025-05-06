@@ -72,8 +72,10 @@ jobs:
         run: |
           if [ -n "${{ env.IMAGE }}" ]; then
             IMAGE="${{ env.IMAGE }}"
-          else
+          elif grep -q "LABEL org.opencontainers.image.title" Dockerfile; then
             IMAGE=$(grep "LABEL org.opencontainers.image.title" Dockerfile | cut -d'"' -f2)
+          else
+            IMAGE=$(echo "${{ github.repository }}" | cut -d'/' -f2)
           fi
           echo "IMAGE=$IMAGE" >> $GITHUB_OUTPUT
           echo "IMAGE=$IMAGE" >> $GITHUB_ENV
